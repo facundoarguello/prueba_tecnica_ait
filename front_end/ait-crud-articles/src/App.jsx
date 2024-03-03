@@ -9,11 +9,11 @@ function App() {
   return (
     <Router>
       <Header />
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/list" element={<ListArticles />} />
-        <Route exact path="/Add" element={<AddArticles />} />
-      </Routes>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/list" element={<ListArticles />} />
+          <Route exact path="/Add" element={<AddArticles />} />
+        </Routes>
     </Router>
   )
 }
