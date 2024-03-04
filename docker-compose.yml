@@ -1,0 +1,49 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    container_name: db_mysql_dk
+    restart: always
+    environment:
+      MYSQL_HOST: localhost
+      MYSQL_DATABASE: 'ait_prueba_tecnica'
+      MYSQL_USER: 'facu'
+      MYSQL_PASSWORD: 'Facu1234@'
+      MYSQL_ROOT_PASSWORD: 'Facu1234@'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - data:/var/lib/mysql
+  backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile_BE
+    container_name: api_be
+    command: sh -c "python3 manage.py makemigrations --noinput && python3 manage.py migrate --noinput && python3 manage.py runserver 0.0.0.0:9000"
+    restart: always
+    volumes:
+      - ./back_end:/app_be
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db
+  frontend:
+    build: 
+      context: .
+      dockerfile: Dockerfile_FE
+    container_name: app_fe
+    command: npm run dev
+    restart: always
+    volumes:
+      - ./front_end:/app_fe
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+    depends_on:
+      - db
+      - backend
+volumes:
+  data:

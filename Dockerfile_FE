@@ -1,0 +1,14 @@
+FROM node:18-alpine
+
+WORKDIR /app_fe
+
+COPY ./front_end/public /app_fe/public
+COPY ./front_end/src /app_fe/src
+COPY ./front_end/package*.json /app_fe/
+COPY ./front_end/vite.config.js /app_fe/
+COPY ./front_end/index.html /app_fe/
+COPY ./front_end/.eslintrc.cjs /app_fe/
+
+RUN npm install
+
+
