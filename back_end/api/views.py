@@ -20,7 +20,7 @@ class ArticuloView(APIView):
 
     def get(self, _request):
         "Get many items"
-        json_response = {}      
+        json_response = {}   
         items = Articulo.objects.all()
         serializer_items = ArticuloSerializers(items, many=True)
         items_len = len(serializer_items.data)
