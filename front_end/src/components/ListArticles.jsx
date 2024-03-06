@@ -1,3 +1,4 @@
+import React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,32 +7,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import DeleteIcon from '@mui/icons-material/Delete';
 import UpdateIcon from '@mui/icons-material/Update';
-import { Button, Pagination } from '@mui/material';
+import { Button, Pagination, IconButton } from '@mui/material';
 import { Link } from 'react-router-dom'
+import { fetchData } from '../utils/fetchData';
+import { Suspense } from 'react';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
 
 
-
-
-const exampleArticlesList =[
-    {
-        "id":1,
-        "description": "Articulo de prueba uno",
-        "code":"Ar24567",
-        "coin": '$',
-        "price": 23.03,
-        "strprice": '$ 23.03',
-        "datecreate": "2023-02-02"
-    },
-    {
-        "id":2,
-        "description": "Articulo de prueba uno",
-        "code":"Ar24567",
-        "coin": '$ARS',
-        "price": 23.03,
-        "strprice": '$ARS 23.03',
-        "datecreate": "2023-02-02"
-    }
-]
 
 const useStyles =() => ({
     actionsIcons: {
@@ -51,10 +35,48 @@ const useStyles =() => ({
         marginBottom:2,
     }
   });
+const getArticulos = fetchData("articulos", 'GET', null, null);
+
 
 export default function ListArticles() {
 
+    const { data } = getArticulos.read();
+
+    const [openDialog, setOpenDialog] = React.useState(false);
+
+    const[itemSelectDelete, SetItemSelectDelete] = React.useState(
+        {
+            id: 0,
+            description: ""
+        }
+    );
+
+  
+
+    const handleCloseDialog = (e) => {
+        const { name } = e.target;
+        if (name == 'agree') {
+            try {
+                const params = `?pks=${itemSelectDelete.id}`;
+                const fetchDeleteArticulos = fetchData("articulos", 'DELETE', null, params);
+                window.location.reload();
+            } catch (error) {
+                console.log(error);
+            }
+            
+        }
+        setOpenDialog(false);
+    };
     const classesStyles = useStyles();
+
+    const handleClickDeleteIcon = (event, item) =>{
+        setOpenDialog(true);
+        SetItemSelectDelete({
+            id:item.id,
+            description: item.description
+        });
+ 
+    };
    
 	return (
         <div>
@@ -76,32 +98,54 @@ export default function ListArticles() {
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                        {exampleArticlesList.map((article) => (
-                            <TableRow
-                            key={article.id}
-                            >
-                                <TableCell component="th" scope="row">{article.id}</TableCell>
-                                <TableCell align="left">{article.description}</TableCell>
-                                <TableCell align="left">{article.code}</TableCell>
-                                <TableCell align="left">{article.strprice}</TableCell>
-                                <TableCell align="left">{article.datecreate}</TableCell>
-                                <TableCell align="center">
-                                    <Link 
-                                        to='/add' 
-                                        state={{ isUpdate: true }}
-                                    >
-                                        <UpdateIcon sx={classesStyles.actionsIcons}/>
-                                    </Link>
-                                </TableCell>
-                                <TableCell align="center">
-                                    <DeleteIcon sx={classesStyles.actionsIcons}/>
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                        <Suspense fallback={<div>Loading...</div>}>
+                            {data.map((article) => (
+                                <TableRow
+                                key={article.id}
+                                >
+                                    <TableCell component="th" scope="row">{article.id}</TableCell>
+                                    <TableCell align="left">{article.description}</TableCell>
+                                    <TableCell align="left">{article.code}</TableCell>
+                                    <TableCell align="left">{article.strprice}</TableCell>
+                                    <TableCell align="left">{article.datecreate}</TableCell>
+                                    <TableCell align="center">
+                                        <Link 
+                                            to='/add' 
+                                            state={{ 
+                                                isUpdate: true ,
+                                                item : article
+
+                                            }}
+                                        >
+                                            <UpdateIcon sx={classesStyles.actionsIcons}/>
+                                        </Link>
+                                    </TableCell>
+                                    <TableCell align="center">
+                                    <IconButton aria-label="delete" color="primary" onClick={(event) => handleClickDeleteIcon(event, article)}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </Suspense>
                     </TableBody>
                 </Table>
             </TableContainer>
             <Pagination count={10} color="primary" sx={classesStyles.pagination}/>
+            <Dialog
+                open={openDialog}
+                onClose={handleCloseDialog}
+            >
+                <DialogTitle>
+                {`Do you want to delete this article ? '${itemSelectDelete.description}'`}
+                </DialogTitle>
+                <DialogActions>
+                <Button onClick={handleCloseDialog} name={'disagre'}>Disagree</Button>
+                <Button onClick={handleCloseDialog} autoFocus name={'agree'}>
+                    Agree
+                </Button>
+                </DialogActions>
+            </Dialog>
             
         </div>
 	);

@@ -20,7 +20,7 @@ class ArticuloView(APIView):
 
     def get(self, _request):
         "Get many items"
-        json_response = {}   
+        json_response = {}
         items = Articulo.objects.all()
         serializer_items = ArticuloSerializers(items, many=True)
         items_len = len(serializer_items.data)
@@ -35,7 +35,6 @@ class ArticuloView(APIView):
         "Insert one or many items"
         items_request = request.data
         json_response = {}
-
         if isinstance(items_request, list):
             serializer_item = ArticuloSerializers(data=items_request, many=True)
         else:
@@ -57,7 +56,7 @@ class ArticuloView(APIView):
             json_response['message'] = 'The pk parameter is required'
             json_response['data'] = None
             return Response(json_response, status=status.HTTP_400_BAD_REQUEST)
-        if request.data == {} :
+        if request.body == {} :
             json_response['message'] = 'The body is required but is empty'
             json_response['data'] = None
             return Response(json_response, status=status.HTTP_400_BAD_REQUEST)
