@@ -14,6 +14,8 @@ import { Suspense } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
+import ExcelImportButton from './ExcelImportButton';
+import ExcelExportButton from './ExcelExportButton';
 
 
 
@@ -35,6 +37,9 @@ const useStyles =() => ({
         marginBottom:2,
     }
   });
+
+
+ 
 const getArticulos = fetchData("articulos", 'GET', null, null);
 
 
@@ -81,8 +86,8 @@ export default function ListArticles() {
 	return (
         <div>
             <div id="id_contain_import">
-                <Button variant="contained" sx={classesStyles.buttonsImportExport}>Import Excel</Button>
-                <Button variant="contained" sx={classesStyles.buttonsImportExport}>Export Excel</Button>
+                <ExcelImportButton styleButton={classesStyles.buttonsImportExport}/>
+                <ExcelExportButton styleButton={classesStyles.buttonsImportExport} bodyData={data}/>
             </div>
             <TableContainer >
                 <Table sx={{ minWidth:  { xs: 300, sm: '75rem' } }} aria-label="simple table">
