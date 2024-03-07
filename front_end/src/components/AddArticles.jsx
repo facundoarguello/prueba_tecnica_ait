@@ -165,6 +165,7 @@ export default function AddArticles() {
                     sx={sxCode.description} 
                     error={errors.description}
                     value={values.description}
+                    inputProps={{ maxLength: 200 }}
                     onChange={handleChange}
                     />
             </div>
@@ -175,6 +176,7 @@ export default function AddArticles() {
                     required id="standard-basic" 
                     label="Code" 
                     value={values.code}
+                    inputProps={{ maxLength: 20 }}
                     sx={sxCode.default} 
                     error={errors.code}
                     onChange={handleChange}
