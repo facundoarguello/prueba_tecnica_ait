@@ -72,14 +72,20 @@ _Que el front end esta hosteado en localhost:8000_
 ![Home](/images_mk/home.png)- Un pequeño inicio con un mensaje
 * Tocar boton comenzar o list (arriba a la derecha)
 ![Pantalla que lista todos los articulos](/images_mk/list.png) - Lista de articulos
-Para exportar, tocar el boton donde dice export . Al tocarlo se le descargara el archivo
-![Archivo descargado](/images_mk/exceldown.png)
-![Un vistazo del archivo](/images_mk/excelfile.png)
-Para importar, debes tocar el boton import , se abrira la pantalla para buscar un archivo.
-![Archivo xlsx que debe respertar este formato y el nombre de las columnas](/images_mk/fileprueba.png)
-![Datos insertados](/images_mk/listinsert.png)
+
+* Para exportar, tocar el boton donde dice export . Al tocarlo se le descargara el archivo
+![Archivo descargado](/images_mk/exceldown.png)- Archivo descargado
+![Un vistazo del archivo](/images_mk/excelfile.png) -Un vistazo del archivo
+* Para importar, debes tocar el boton import , se abrira la pantalla para buscar un archivo.
+![Archivo xlsx que debe respertar este formato y el nombre de las columnas](/images_mk/fileprueba.png) -Archivo xlsx que debe respertar este formato y el nombre de las columnas-
+
+![Datos insertados](/images_mk/listinsert.png) - Resultado
+
+* Pantalla para insertar un articulo
 ![Pantalla para insertar un articulo](images_mk/add.png)
+* Pantalla para modificar un articulo
 ![Pantalla para modificar un articulo](images_mk/up.png)
+* Para borrar se debe clickear este icono
 ![Para borrar se debe clickear este icono](images_mk/del.png)
 
 ## Construido con 🛠️
