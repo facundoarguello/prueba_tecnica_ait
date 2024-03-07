@@ -36,8 +36,6 @@ services:
     container_name: app_fe
     command: npm run dev
     restart: always
-    volumes:
-      - ./front_end:/app_fe
     ports:
       - "8000:8000"
     expose:
