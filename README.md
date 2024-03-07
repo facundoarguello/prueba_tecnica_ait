@@ -11,26 +11,8 @@ sistema operativo linux Ubuntu 22.04.1 LTS
 
 ### Pre-requisitos 📋
 
-_Necesitaras para el funcionamiento del proyecto Docker_
+_Necesitaras Docker para el funcionamiento del proyecto _
 para mas informacion les dejo la documentacion de docker :https://docs.docker.com/desktop/install/linux-install/
-Habre tu consola de linux.
-```
-
-sudo apt-get update
-sudo apt-get install ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-# Add the repository to Apt sources:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-```
 
 _Revisar que los puertos 8000, 9000 y 3306 no esten ocupados_
 
@@ -83,9 +65,13 @@ _Que el front end esta hosteado en localhost:8000_
 
 * Pantalla para insertar un articulo
 ![Pantalla para insertar un articulo](images_mk/add.png)
+
 * Pantalla para modificar un articulo
 ![Pantalla para modificar un articulo](images_mk/up.png)
+
 * Para borrar se debe clickear este icono
+
+  
 ![Para borrar se debe clickear este icono](images_mk/del.png)
 
 ## Construido con 🛠️
@@ -93,7 +79,7 @@ _Que el front end esta hosteado en localhost:8000_
 * [Docker](https://docs.docker.com/manuals/) - Para el manejo de los contenedores
 * [Python3.8](https://docs.python.org/3.8/) - Lenguaje para el back
 * [Ddjango rest framework](https://www.django-rest-framework.org/) - Django framework
-* [Reactjs](https://legacy.reactjs.org/docs/getting-started.html) - Usado para generar RSS
+* [Reactjs](https://legacy.reactjs.org/docs/getting-started.html) - Usado para generar el front end
 * [Vite](https://carlosazaustre.es/react-vite) - Usado para la compilación rapida de Reactjs
 * [MUI](https://mui.com/material-ui/all-components/) - Usado para la seleccion de los componentes, esto me resulta mucho mas facil , por que tiene diseños predeterminados
 
