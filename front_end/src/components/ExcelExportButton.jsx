@@ -4,8 +4,18 @@ import {utils, write} from "xlsx";
 
 export default function ExcelExportButton({styleButton, bodyData}) {
     const rowsNames = ['id','description', 'code','coin', 'price','strprice', 'datecreate']
-    const currentDate = new Date();
-    const fileName = `List items ${currentDate}`;
+
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); 
+    const day = String(today.getDate()).padStart(2, '0');
+    const hours = String(today.getHours()).padStart(2, '0');
+    const minutes = String(today.getMinutes()).padStart(2, '0');
+    const seconds = String(today.getSeconds()).padStart(2, '0');
+
+    const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+    const fileName = `List items ${formattedDateTime}`;
     const fileType ="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
     const fileExtension = ".xlsx";
 

@@ -48,7 +48,6 @@ export default function ExcelImportButton({styleButton}) {
         reader.onloadend = (e) => {
             let data = new Uint8Array(e.target.result);
             let woorkbook = read(data,{type: 'array'});
-            console.log("ws",woorkbook)
             woorkbook.SheetNames.forEach(function(sheetName){
                     let excel_row = utils.sheet_to_json(woorkbook.Sheets[sheetName]);
                     hojas.push(...excel_row);
