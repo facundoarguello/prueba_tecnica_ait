@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'corsheaders'
 ]
 
+
+
 CORS_ORIGIN_WHITELIST = [
      'http://localhost:8000'
 ]
@@ -134,3 +136,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+}

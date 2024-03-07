@@ -4,7 +4,7 @@ from .serializers import ArticuloSerializers
 from .models import Articulo
 from rest_framework import status
 from django.http import Http404
-
+from .pagination import MyCustomPagination
 
 # Create your views here.
 
@@ -18,12 +18,16 @@ class ArticuloView(APIView):
         except Articulo.DoesNotExist:
             raise Http404
 
-    def get(self, _request):
+    def get(self, request):
         "Get many items"
         json_response = {}
         items = Articulo.objects.all()
-        serializer_items = ArticuloSerializers(items, many=True)
-        items_len = len(serializer_items.data)
+        items_len = len(items)
+        pagination_class = MyCustomPagination()
+        result_page = pagination_class.paginate_queryset(items, request)
+        serializer_items = ArticuloSerializers(result_page, many=True)
+        
+        
         json_response['total_items'] = items_len
         json_response['message'] = 'Succesfully'
         json_response['data'] = serializer_items.data
