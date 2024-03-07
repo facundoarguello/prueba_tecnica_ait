@@ -10,7 +10,7 @@ import {
     Snackbar,
     Alert} from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate} from 'react-router-dom';
 import { fetchData } from '../utils/fetchData';
 import Update from '@mui/icons-material/Update';
 import { isGoodValuesNum, isGoodValuesStr } from '../utils/utils';
@@ -43,6 +43,7 @@ const stylesForms = () => ({
 })
 
 export default function AddArticles() {
+    const navigate = useNavigate();
     const location = useLocation()
     const { isUpdate, item } = location.state;
     const sxCode = stylesForms();
@@ -86,8 +87,6 @@ export default function AddArticles() {
         setValues((v) => ({ ...v, [name]: value }));
       };
 
-    
-
     const handleSaveButton= () =>{
         const { description, code, price, coin } = values;
 
@@ -107,7 +106,7 @@ export default function AddArticles() {
                 if(! isUpdate){
                     try {
                         const fetchPost =  fetchData('articulos', 'POST', body_request, null);
-                        setOpenSnakebar((v) => ({ ...v, ['open']: true }));
+                        setOpenSnakebar((v) => ({ ...v, ['open']: true })); 
                         
                     }
                     catch (e) {
@@ -124,6 +123,7 @@ export default function AddArticles() {
                         const fetchPut =  fetchData('articulos', 'PUT', body_request, paramsStr);
                         setOpenSnakebar((v) => ({ ...v, ['open']: true }));
                         setOpenSnakebar((v) => ({ ...v, ['message']: 'Item updated succesfully !' }));
+                
                     }
                     catch (e) {
                         console.log(e.message);
@@ -138,11 +138,14 @@ export default function AddArticles() {
     }
 
     const handleClose = () => {
-        setOpenSnakebar(false);
+        setOpenSnakebar((v) => ({ ...v, ['open']: false }));
+        console.log("sadas")
+        if(!openSnakebar.error) {
+            navigate('/list');
+        };
       };
-
     return (
-        <form noValidate autoComplete="off" >
+        <form noValidate autoComplete="off" id='form-up-and-add' >
             <Typography sx={sxCode.title}>{title}</Typography>
             <div id='content-id-description'>
                  {isUpdate ? <TextField 
@@ -179,6 +182,7 @@ export default function AddArticles() {
                 <FormControl 
                     required  
                     sx={sxCode.default}
+                    value={values.coin}
                  
                 >
                     <Select 

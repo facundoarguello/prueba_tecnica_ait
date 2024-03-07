@@ -12,8 +12,6 @@ a:hover {
 body {
   margin: 0;
   display: grid;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
 
 }
@@ -29,12 +27,25 @@ h1 {
 }
 #content-id-description {
   display: flex;
-  justify-content: center;
   margin-bottom: 3%;
 }
 
 button:hover {
   border-color: #8388ec;
+}
+
+#container-list {
+  margin: 2%;
+  margin-left: 4%;
+  margin-right: 4%;
+}
+
+#form-up-and-add {
+  display: grid;
+  align-items: center;
+  margin-top: 3%;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
 @media (prefers-color-scheme: light) {
@@ -56,6 +67,13 @@ button:hover {
     display: block;
     justify-content: center;
     margin-bottom: 3%;
+  }
+  #form-up-and-add {
+    display: grid;
+    align-items: center;
+    margin-top: 2%;
+    margin-left: 10%;
+    margin-right: 10%;
   }
   
 }

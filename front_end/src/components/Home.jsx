@@ -6,7 +6,7 @@ import { Button } from '@mui/material';
 export default function ListArticles() {
    
 	return (
-        <Box sx={{ width: '100%', maxWidth: 800 }}>
+        <div id="form-up-and-add">
             <Typography variant="h5" gutterBottom>
                 Esto es una breve carta de presentación para la prueba técnica. Desarrollada en Reactjs y usando la liberia de Mui para la facitalisación de algunos componentes.
                 La idea es mostrar la lista de artículos con su respectiva informacion .
@@ -23,7 +23,7 @@ export default function ListArticles() {
             >
                 <Link to="/list">Comenzar</Link>
             </Button>
-        </Box>
+        </div>
         
 	);
 }

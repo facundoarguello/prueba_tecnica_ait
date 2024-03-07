@@ -1,3 +1,6 @@
+
+import { useEffect } from "react";
+
 const API_URL = 'http://localhost:9000/api';
 
 const getSuspender = (promise) => {
@@ -34,6 +37,7 @@ const getSuspender = (promise) => {
     if (params) {
         url = url + params;
     }
+    console.log(url)
     const promise = fetch(
         url,
         {
@@ -51,3 +55,18 @@ const getSuspender = (promise) => {
   
     return getSuspender(promise);
   }
+
+export function useFetch(path, limit, offset, setData, SetTotalItems) {
+  
+  useEffect(() => {
+    fetch(`${API_URL}/${path}/?limit=${limit}&offset=${offset}`)
+      .then(response => response.json())
+      .then(data =>{
+        setData(data.data);
+        SetTotalItems(data.total_items);
+      } )
+      .catch(error => console.error(error));
+  }, [limit, offset]);
+   
+
+}

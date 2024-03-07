@@ -28,7 +28,7 @@ export default function Header() {
         },
     ]
 	return (
-		<AppBar >
+		<AppBar  sx={{position: 'sticky'}}>
 			<Toolbar sx={{justifyContent: 'space-between'}}>	
                 <Link to="/">
                     <img src={aiotLogo}/>
