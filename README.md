@@ -32,13 +32,21 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-### Instalación 🔧
+_Revisar que los puertos 8000, 9000 y 3306 no esten ocupados_
 
-_No necesitas intalar nada mas , ya uqe docker maneja todos los paquetes _
+```
+sudo lsof -i:3306 
+sudo lsof -i:8000 
+sudo lsof -i:9000 
+```
 
+_En el caso que este ocupado lo puerto_
 
+```
+kill -9 PID
+```
 
-## Ejecutando las pruebas ⚙️
+## Levantar localmente el proyecto ⚙️
 
 _Para levantar el proyecto debes solo pararte en la ruta donde esta el docker-compose.yml_
 
@@ -47,13 +55,32 @@ Te paras en la carpeta principal del docker-ompose.yml
 ```
 docker compose up
 ```
+| CONTAINER ID  | IMAGE                        | COMMAND                   | CREATED         | STATUS        | PORTS                                                 | NAMES     |
+|---------------|------------------------------|---------------------------|-----------------|---------------|-------------------------------------------------------|-----------|
+| 52e927950795  | prueba_tecnica_ait-frontend  | docker-entrypoint.sh      | 7 seconds ago  | Up 6 seconds  | 0.0.0.0:8000->8000/tcp, :::8000->8000/tcp            | app_fe    |
+|               |                              |                           |                 |               |                                                       |           |
+| 051d571d5624  | prueba_tecnica_ait-backend   | sh -c 'python3 manage.py' | 24 minutes ago | Up 5 seconds  | 8000/tcp, 0.0.0.0:9000->9000/tcp, :::9000->9000/tcp | api_be    |
+|               |                              |                           |                 |               |                                                       |           |
+| b5bae3e3a8e1  | mysql:5.7                    | docker-entrypoint.sh      | 34 minutes ago | Up 6 seconds  | 0.0.0.0:3306->3306/tcp, :::3306->3306/tcp, 33060/tcp | db_mysql_dk|
 
 ### Analice las pruebas end-to-end 🔩
 
 _Cuando este levantado eldocker le mostrara que la api de backend esta hosteado en localhost:9000_
 _Que el front end esta hosteado en localhost:8000_
 
-
+* Ingresar a localhost:8000
+![Home](/images_mk/home.png)- Un pequeño inicio con un mensaje
+* Tocar boton comenzar o list (arriba a la derecha)
+![Pantalla que lista todos los articulos](/images_mk/list.png) - Lista de articulos
+Para exportar, tocar el boton donde dice export . Al tocarlo se le descargara el archivo
+![Archivo descargado](/images_mk/exceldown.png)
+![Un vistazo del archivo](/images_mk/excelfile.png)
+Para importar, debes tocar el boton import , se abrira la pantalla para buscar un archivo.
+![Archivo xlsx que debe respertar este formato y el nombre de las columnas](/images_mk/fileprueba.png)
+![Datos insertados](/images_mk/listinsert.png)
+![Pantalla para insertar un articulo](images_mk/add.png)
+![Pantalla para modificar un articulo](images_mk/up.png)
+![Para borrar se debe clickear este icono](images_mk/del.png)
 
 ## Construido con 🛠️
 
@@ -70,7 +97,7 @@ _Que el front end esta hosteado en localhost:8000_
 _Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios_
 
 * **Facundo Argüello** - *Trabajo Inicial* - [facundoarguello](https://github.com/facundoarguello)
-**Andrés Villanueva** - *Plantilla de markdown* - [villanuevand](https://github.com/villanuevand)
+* **Andrés Villanueva** - *Plantilla de markdown* - [villanuevand](https://github.com/villanuevand)
 
 ## Expresiones de Gratitud 🎁
 
