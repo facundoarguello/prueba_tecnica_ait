@@ -9,7 +9,6 @@ COPY ./front_end/vite.config.js /app_fe/
 COPY ./front_end/index.html /app_fe/
 COPY ./front_end/.eslintrc.cjs /app_fe/
 
-RUN npm run build
 RUN npm install
 
 
