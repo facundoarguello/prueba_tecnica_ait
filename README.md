@@ -1,7 +1,7 @@
 # prueba_tecnica_ait
 
-Este es proyecto es una prueba tecnica para la empres Ait solutions.Contiene dos carpetas Front end y Back end.
-En si es una aplicacion que muestra una listados de articulos y su agregado, modificado y borrado de ellos.
+Este proyecto es una prueba tecnica para la empres Ait solutions.Contiene dos carpetas Front end y Back end.
+En si es una aplicacion que muestra un listados de articulos y su agregado, modificado y borrado de ellos.
 El front end esta hecho con lenguaje Reactjs -
 El back end esta hecho con django y con una base de datos mysql.
 python version 3.8-
@@ -12,7 +12,7 @@ sistema operativo linux Ubuntu 22.04.1 LTS
 ### Pre-requisitos 📋
 
 _Necesitaras Docker para el funcionamiento del proyecto _
-para mas informacion les dejo la documentacion de docker :https://docs.docker.com/desktop/install/linux-install/
+para mas información les dejo la documentación de docker :https://docs.docker.com/desktop/install/linux-install/
 
 _Revisar que los puertos 8000, 9000 y 3306 no esten ocupados_
 
