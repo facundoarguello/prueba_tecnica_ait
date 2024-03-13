@@ -82,7 +82,7 @@ _Que el front end esta hosteado en localhost:8000_
 * [Reactjs](https://legacy.reactjs.org/docs/getting-started.html) - Usado para generar el front end
 * [Vite](https://carlosazaustre.es/react-vite) - Usado para la compilación rapida de Reactjs
 * [MUI](https://mui.com/material-ui/all-components/) - Usado para la seleccion de los componentes, esto me resulta mucho mas facil , por que tiene diseños predeterminados
-
+* [POSTMAN](https://documenter.getpostman.com/view/25670044/2sA2xk1roH) - Documentación de la api de backend
 
 ## Autores ✒️
 
