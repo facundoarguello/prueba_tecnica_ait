@@ -20,6 +20,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile_BE
+    image: farguello1995/ait_be:v1
     container_name: api_be
     command: sh -c "python3 manage.py makemigrations --noinput && python3 manage.py migrate --noinput && python3 manage.py runserver 0.0.0.0:9000"
     restart: always

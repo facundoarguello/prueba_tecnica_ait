@@ -62,6 +62,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'project.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -84,14 +85,23 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+HOST_DB = os.environ['HOST_DB']
+PORT_DB = os.environ['PORT_DB']
+
+USER_DB = os.environ['USER_DB']
+
+PASSWORD_DB = os.environ['PASSWORD_DB']
+NAME_DB = os.environ['NAME_DB']
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'db_mysql_dk',
-        'PORT': '3306',
-        'USER': 'facu',
-        'PASSWORD': 'Facu1234@',
-        'NAME': 'ait_prueba_tecnica',
+        'HOST': HOST_DB,
+        'PORT': PORT_DB,
+        'USER': USER_DB,
+        'PASSWORD': PASSWORD_DB,
+        'NAME': NAME_DB,
         'OPTIONS': {
             'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
         }
