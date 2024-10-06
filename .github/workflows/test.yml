@@ -21,7 +21,7 @@ jobs:
           MYSQL_PASSWORD: Facu1234@
           MYSQL_ROOT_PASSWORD: Facu1234@
         ports:
-          - 3306:3306
+          - 3307:3306
         options: >-
           --health-cmd="mysqladmin ping -h localhost" 
           --health-interval=30s 
