@@ -48,5 +48,3 @@ jobs:
     - name: Stop services
       run: docker-compose -f docker-compose.yml down
 
-volumes:
-  db_data:
