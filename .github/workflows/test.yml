@@ -28,7 +28,6 @@ jobs:
 
       - name: Upload test reports (optional)
         uses: actions/upload-artifact@v3  # Store test results for analysis
-        if: always  # Always upload results, even for failures
         with:
           name: test-reports
           path: backend/test_results  # Or a custom directory
