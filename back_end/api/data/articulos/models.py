@@ -1,6 +1,5 @@
 from django.db import models
-
-# Create your models here.
+from django.core.exceptions import ValidationError
 
 class Articulo(models.Model):
     COINS_SYMBOLS = [
@@ -18,4 +17,14 @@ class Articulo(models.Model):
 
     def save(self, *args, **kwargs):
         self.strprice = f"{self.coin} {self.price}"
-        return super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
+
+    def clean(self):
+        if self.price < 0:
+            raise ValidationError('Price cannot be negative.')
+
+    def __str__(self):
+        return f"{self.description} - {self.strprice}"
+
+    class Meta:
+        ordering = ['datecreate']
