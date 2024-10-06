@@ -23,5 +23,5 @@ class ArticleUseCase:
         filter_id_in = {
             "id__in" : pks_list
         }
-        articles = self.repository.filter(filter_id_in)
+        articles = self.repository.filter_by_ids(filter_id_in)
         self.repository.delete(articles)

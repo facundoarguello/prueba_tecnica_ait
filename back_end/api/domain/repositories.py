@@ -17,6 +17,3 @@ class RepositoryInterface(ABC):
     @abstractmethod
     def delete(self, instance):
         pass
-    @abstractmethod
-    def filter(self, filter_data):
-        pass

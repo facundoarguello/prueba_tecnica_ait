@@ -1,7 +1,7 @@
-from api.domain.repositories import RepositoryInterface
+from api.domain.articulos.articulo_repository import AriticuloRepositoryInterface
 from .models import Articulo
 
-class ArticuloRepository(RepositoryInterface):
+class ArticuloRepository(AriticuloRepositoryInterface):
     def get_all(self):
         return Articulo.objects.all()
 
@@ -19,7 +19,7 @@ class ArticuloRepository(RepositoryInterface):
 
     def delete(self, instance):
         instance.delete()
-    def filter(self, filter_data):
+    def filter_by_ids(self, filter_data):
         item = Articulo.objects.filter(**filter_data)
         return item
 
