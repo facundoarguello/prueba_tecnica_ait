@@ -46,6 +46,13 @@ jobs:
 
     - name: Grant privileges to user
       run: |
+        for i in {1..30}; do
+          if docker exec db_mysql_dk mysqladmin -u root -p${{ secrets.MYSQL_ROOT_PASSWORD }} ping; then
+            break
+          fi
+          echo "Esperando a que MySQL esté disponible..."
+          sleep 2
+        done
         docker exec -i db_mysql_dk mysql -u root -p${{ secrets.MYSQL_ROOT_PASSWORD }} -e "GRANT ALL PRIVILEGES ON *.* TO 'facu'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;"
 
     - name: Run tests
