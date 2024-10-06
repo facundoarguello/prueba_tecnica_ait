@@ -12,12 +12,37 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      db:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+        ports:
+          - 3307:3306  # Cambiar el puerto externo a 3307
+        volumes:
+          - db_data:/var/lib/mysql
+
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
 
     - name: Build and run backend container
       run: |
         docker compose -f docker-compose.yml up -d
-        sleep 10  
+        # Esperar a que MySQL esté listo
+        for i in {1..30}; do
+          if docker exec db_mysql_dk mysqladmin -u root -p${{ secrets.MYSQL_ROOT_PASSWORD }} ping; then
+            break
+          fi
+          echo "Esperando a que MySQL esté disponible..."
+          sleep 2
+        done
 
     - name: Grant privileges to user
       run: |
@@ -29,4 +54,3 @@ jobs:
 
     - name: Stop services
       run: docker compose -f docker-compose.yml down
-
