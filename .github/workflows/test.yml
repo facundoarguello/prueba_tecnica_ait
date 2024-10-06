@@ -35,29 +35,3 @@ jobs:
 
       - name: Stop services (optional)
         run: docker-compose down  # Stop containers for cleanup
-
-**Explanation:**
-
-- **`on` trigger:** The workflow runs on push events to the `main` branch (adjust as needed).
-- **`runs-on`:** Choose an appropriate runner environment that supports Docker Compose.
-- **`Checkout code`:** Fetches the repository code.
-- **`Set up Docker Compose`:** Installs or updates Docker Compose on the runner.
-- **`Build and start services`:** Builds images (if necessary) and runs services in detached mode (`-d`) using `docker-compose up`.
-- **`Install test dependencies`:** Installs required dependencies within the `backend` service container (`docker-compose run`).
-- **`Run tests`:** Executes tests within the `backend` container using the provided command, mounting the volume with your code (`./back_end:/app_be`). The container is stopped after test execution (`--rm`).
-- **`Upload test reports (optional)`:** Uploads generated test reports (e.g., in `backend/test_results`) to GitHub Actions artifacts for further analysis.
-- **`Stop services (optional)`:** Stops Docker Compose services for cleanup after tests are complete.
-
-**Security Considerations:**
-
-- **Avoid storing sensitive database credentials in the workflow:** Use environment variables or secrets management solutions for secure configuration.
-- **Consider using `--entrypoint` to define the test command:** For improved security, set an entrypoint in the Dockerfile for the `backend` service that directly runs the `python3 manage.py test` command. This avoids passing the command directly during runtime.
-- **Regularly update dependencies:** Maintain the latest versions of Docker Compose and other dependencies to address potential vulnerabilities.
-
-**Additional Notes:**
-
-- Adjust paths, service names, or commands to match your project structure.
-- Remember to create a `requirements.txt` (or similar) file in your `backend` service to list test dependencies.
-- Use environment variables or secrets management for database configuration.
-
-By following these steps and considering security best practices, you can effectively run tests within your Dockerized development workflow on GitHub Actions.
