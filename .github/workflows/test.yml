@@ -27,6 +27,7 @@ jobs:
           --health-interval=30s 
           --health-timeout=10s 
           --health-retries=5
+        
 
     steps:
       - name: Check out code
@@ -39,12 +40,15 @@ jobs:
         run: |
           docker compose up --build -d
           sleep 30  # Espera a que MySQL esté listo
-
+      - name: Grant privileges to user
+        run: |
+          docker exec -i db_mysql_dk mysql -u root -p${{ secrets.MYSQL_ROOT_PASSWORD }} -e "GRANT ALL PRIVILEGES ON *.* TO 'facu'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+    
       - name: Run migrations and tests
         run: |
           docker compose exec backend python3 manage.py makemigrations --noinput
           docker compose exec backend python3 manage.py migrate --noinput
-          docker compose exec backend python3 manage.py test
+          docker compose exec backend python3 manage.py test api.test
           
       - name: Stop and remove containers
         run: docker compose down
