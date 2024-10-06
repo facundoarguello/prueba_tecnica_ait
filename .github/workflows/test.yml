@@ -2,62 +2,62 @@ name: Run Tests
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    services:
-      db:
-        image: mysql:5.7
-        env:
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-          MYSQL_USER: ${{ secrets.MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-        ports:
-          - 3307:3306  # Cambiar el puerto externo a 3307
-        volumes:
-          - db_data:/var/lib/mysql
+  run-tests:
+    runs-on: ubuntu-latest  # Or a preferred runner environment
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+      - name: Set up Docker Compose
+        uses: docker/setup-compose@v2  # Use the recommended v2 action
+        with:
+          up-args: -d  # Run services in detached mode
 
-    - name: Build and run backend container
-      run: |
-        docker compose -f docker-compose.yml up -d
-        # Esperar a que MySQL esté listo
-        for i in {1..30}; do
-          if docker exec db_mysql_dk mysqladmin -u root -p${{ secrets.MYSQL_ROOT_PASSWORD }} ping; then
-            break
-          fi
-          echo "Esperando a que MySQL esté disponible..."
-          sleep 2
-        done
+      - name: Build and start services (if not already running)
+        run: docker-compose up -d --build  # Only build if necessary
 
-    - name: Grant privileges to user
-      run: |
-        for i in {1..30}; do
-          if docker exec db_mysql_dk mysqladmin -u root -p${{ secrets.MYSQL_ROOT_PASSWORD }} ping; then
-            break
-          fi
-          echo "Esperando a que MySQL esté disponible..."
-          sleep 2
-        done
-        docker exec -i db_mysql_dk mysql -u root -p${{ secrets.MYSQL_ROOT_PASSWORD }} -e "GRANT ALL PRIVILEGES ON *.* TO 'facu'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+      - name: Install test dependencies (if needed)
+        run: docker-compose run backend pip install -r requirements.txt  # Adjust path as needed
 
-    - name: Run tests
-      run: |
-        docker compose -f docker-compose.yml run backend sh -c "python3 manage.py test api.tests"
+      - name: Run tests
+        run: docker-compose run --rm backend python3 manage.py test api.tests
 
-    - name: Stop services
-      run: docker compose -f docker-compose.yml down
+      - name: Upload test reports (optional)
+        uses: actions/upload-artifact@v3  # Store test results for analysis
+        if: always  # Always upload results, even for failures
+        with:
+          name: test-reports
+          path: backend/test_results  # Or a custom directory
+
+      - name: Stop services (optional)
+        run: docker-compose down  # Stop containers for cleanup
+
+**Explanation:**
+
+- **`on` trigger:** The workflow runs on push events to the `main` branch (adjust as needed).
+- **`runs-on`:** Choose an appropriate runner environment that supports Docker Compose.
+- **`Checkout code`:** Fetches the repository code.
+- **`Set up Docker Compose`:** Installs or updates Docker Compose on the runner.
+- **`Build and start services`:** Builds images (if necessary) and runs services in detached mode (`-d`) using `docker-compose up`.
+- **`Install test dependencies`:** Installs required dependencies within the `backend` service container (`docker-compose run`).
+- **`Run tests`:** Executes tests within the `backend` container using the provided command, mounting the volume with your code (`./back_end:/app_be`). The container is stopped after test execution (`--rm`).
+- **`Upload test reports (optional)`:** Uploads generated test reports (e.g., in `backend/test_results`) to GitHub Actions artifacts for further analysis.
+- **`Stop services (optional)`:** Stops Docker Compose services for cleanup after tests are complete.
+
+**Security Considerations:**
+
+- **Avoid storing sensitive database credentials in the workflow:** Use environment variables or secrets management solutions for secure configuration.
+- **Consider using `--entrypoint` to define the test command:** For improved security, set an entrypoint in the Dockerfile for the `backend` service that directly runs the `python3 manage.py test` command. This avoids passing the command directly during runtime.
+- **Regularly update dependencies:** Maintain the latest versions of Docker Compose and other dependencies to address potential vulnerabilities.
+
+**Additional Notes:**
+
+- Adjust paths, service names, or commands to match your project structure.
+- Remember to create a `requirements.txt` (or similar) file in your `backend` service to list test dependencies.
+- Use environment variables or secrets management for database configuration.
+
+By following these steps and considering security best practices, you can effectively run tests within your Dockerized development workflow on GitHub Actions.
