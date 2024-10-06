@@ -48,7 +48,7 @@ jobs:
         run: |
           docker compose exec backend python3 manage.py makemigrations --noinput
           docker compose exec backend python3 manage.py migrate --noinput
-          docker compose exec backend python3 manage.py test api.test
+          docker compose exec backend python3 manage.py test api.tests
           
       - name: Stop and remove containers
         run: docker compose down
