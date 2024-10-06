@@ -12,6 +12,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    steps:
+
     - name: Build and run backend container
       run: |
         docker compose -f docker-compose.yml up -d
