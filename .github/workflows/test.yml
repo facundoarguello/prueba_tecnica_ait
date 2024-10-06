@@ -1,36 +1,50 @@
-name: Run Tests
+name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  run-tests:
-    runs-on: ubuntu-latest  # Or a preferred runner environment
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: ait_prueba_tecnica
+          MYSQL_USER: facu
+          MYSQL_PASSWORD: Facu1234@
+          MYSQL_ROOT_PASSWORD: Facu1234@
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost" 
+          --health-interval=30s 
+          --health-timeout=10s 
+          --health-retries=5
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Check out code
+        uses: actions/checkout@v2
 
-      - name: Set up Docker Compose
-        uses: docker/setup-compose@v2  # Use the recommended v2 action
-        with:
-          up-args: -d  # Run services in detached mode
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-      - name: Build and start services (if not already running)
-        run: docker-compose up -d --build  # Only build if necessary
+      - name: Build and run containers
+        run: |
+          docker-compose up --build -d
+          sleep 30  # Espera a que MySQL esté listo
 
-      - name: Install test dependencies (if needed)
-        run: docker-compose run backend pip install -r requirements.txt  # Adjust path as needed
-
-      - name: Run tests
-        run: docker-compose run --rm backend python3 manage.py test api.tests
-
-      - name: Upload test reports (optional)
-        uses: actions/upload-artifact@v3  # Store test results for analysis
-        with:
-          name: test-reports
-          path: backend/test_results  # Or a custom directory
-
-      - name: Stop services (optional)
-        run: docker-compose down  # Stop containers for cleanup
+      - name: Run migrations and tests
+        run: |
+          docker-compose exec backend python3 manage.py makemigrations --noinput
+          docker-compose exec backend python3 manage.py migrate --noinput
+          docker-compose exec backend python3 manage.py test
+          
+      - name: Stop and remove containers
+        run: docker-compose down
