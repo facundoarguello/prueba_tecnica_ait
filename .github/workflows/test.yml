@@ -34,7 +34,7 @@ jobs:
 
     - name: Build and run backend container
       run: |
-        docker-compose -f docker-compose.yml up -d
+        docker compose -f docker-compose.yml up -d
         sleep 10  
 
     - name: Grant privileges to user
