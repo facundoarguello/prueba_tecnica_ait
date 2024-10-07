@@ -2,9 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
-from api.data.articulos.repositories import ArticuloRepository
 from api.usecases.articulos.use_cases import ArticleUseCase
-from api.interfaces.articulos.serializers import ArticuloSerializers
+from api.interfaces.articulos.articulo_serializer import ArticuloSerializers
 from api.pagination import MyCustomPagination
 from api.data.articulos.models import Articulo
 
@@ -80,3 +79,4 @@ class ArticuloView(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
         self.article_usecase.delete_articles(pks)
         return Response(status=status.HTTP_204_NO_CONTENT)
+

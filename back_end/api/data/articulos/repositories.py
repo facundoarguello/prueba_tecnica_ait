@@ -22,4 +22,15 @@ class ArticuloRepository(AriticuloRepositoryInterface):
     def filter_by_ids(self, filter_data):
         item = Articulo.objects.filter(**filter_data)
         return item
+    def import_excel_data_in_db(self, row):
+        Articulo.objects.update_or_create(
+                    id=row['Id'],
+                    defaults={
+                        'description': row['Description'],
+                        'coin': row['Coin'],
+                        'price': row['Price'],
+                        'datecreate': row['Date Create'],
+                        'code': row['Code']
+                    }
+                )
 
