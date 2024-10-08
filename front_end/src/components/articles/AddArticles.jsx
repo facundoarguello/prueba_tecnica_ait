@@ -11,9 +11,9 @@ import {
     Alert} from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import { useLocation, useNavigate} from 'react-router-dom';
-import { fetchData } from '../utils/fetchData';
+import { fetchData } from '../../utils/fetchData';
 import Update from '@mui/icons-material/Update';
-import { isGoodValuesNum, isGoodValuesStr } from '../utils/utils';
+import { isGoodValuesNum, isGoodValuesStr } from '../../utils/utils';
 
 
 

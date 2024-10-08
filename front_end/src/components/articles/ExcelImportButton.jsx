@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles';
 import { Button, } from '@mui/material';
-import { fetchImportData } from '../utils/fetchData';
+import { fetchImportData } from '../../utils/fetchData';
 
 import React from 'react';
 

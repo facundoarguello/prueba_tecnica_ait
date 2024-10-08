@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Button } from '@mui/material';
-import { fetchData } from '../utils/fetchData';
+import { fetchData } from '../../utils/fetchData';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';

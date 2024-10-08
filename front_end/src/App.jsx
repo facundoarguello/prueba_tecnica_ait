@@ -1,8 +1,8 @@
-import Header from "./components/Header"
+import Header from "./components/common/Header"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ListArticles from "./components/ListArticles";
-import Home from "./components/Home";
-import AddArticles  from "./components/AddArticles";
+import ListArticles from "./components/articles/ListArticles"
+import Home from "./pages/Home";
+import AddArticles  from "./components/articles/AddArticles";
 
 function App() {
 

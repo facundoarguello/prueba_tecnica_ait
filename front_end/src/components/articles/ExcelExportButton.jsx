@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import { fetchAndDownloadExcel } from '../utils/fetchData';
+import { fetchAndDownloadExcel } from '../../utils/fetchData';
 
 export default function ExcelExportButton({styleButton, bodyData}) {
     const handleDownload = () => {

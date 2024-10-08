@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { Typography } from '@mui/material';
-import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
 
 export default function ListArticles() {
@@ -18,11 +17,13 @@ export default function ListArticles() {
                 You can also add, modify and delete items.
             </Typography>
 
-            <Button 
-                variant="contained" 
-            >
-                <Link to="/list">Comenzar</Link>
-            </Button>
+            <Link to="/list">
+                <Button 
+                    variant="contained" 
+                >
+                Comenzar
+                </Button>
+            </Link>
         </div>
         
 	);

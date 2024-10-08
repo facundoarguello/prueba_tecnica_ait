@@ -11,7 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import UpdateIcon from '@mui/icons-material/Update';
 import { IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useFetch, fetchData } from '../utils/fetchData';
+import { useFetch } from '../../utils/fetchData';
 
 
 
