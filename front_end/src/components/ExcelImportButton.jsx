@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles';
 import { Button, } from '@mui/material';
-import {read, utils} from "xlsx";
-import { fetchData } from '../utils/fetchData';
+import { fetchImportData } from '../utils/fetchData';
 
 import React from 'react';
 
@@ -36,31 +35,23 @@ const VisuallyHiddenInput = styled('input')({
 export default function ExcelImportButton({styleButton}) {
     
     let hojas = [];
-    const handleClickImport=(event) => {
+    const handleClickImport= async (event) => {
 
         const fileObj =  event.target.files[0];
         if (!fileObj) {
         return;
         }
 
-        let reader = new FileReader();
-        reader.readAsArrayBuffer(fileObj);
-        reader.onloadend = (e) => {
-            let data = new Uint8Array(e.target.result);
-            let woorkbook = read(data,{type: 'array'});
-            woorkbook.SheetNames.forEach(function(sheetName){
-                    let excel_row = utils.sheet_to_json(woorkbook.Sheets[sheetName]);
-                    hojas.push(...excel_row);
-                }
-            );
-            
-            const dataRequestPost = makeObjItem(hojas);
+        const formData = new FormData(); // Crear un FormData para enviar el archivo
+        formData.append('file', fileObj);
 
-            const fetchPostResponse = fetchData('articulos','POST', dataRequestPost, null);
+        try {
+
+            const response = await fetchImportData("articulos/import", formData);
             window.location.reload();
-
+        } catch (error) {
+            console.log(error);
         }
-
 
     }
 

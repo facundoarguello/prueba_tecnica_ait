@@ -32,6 +32,46 @@ const getSuspender = (promise) => {
     return { read };
   };
   
+  export function fetchAndDownloadExcel(path, method, body, params) {
+    let url = `${API_URL}/${path}/`;
+    if (params) {
+        url += params;
+    }
+    
+    fetch(
+        url,
+        {
+            method: method,
+            headers: {
+
+                'Content-Type': 'application/json',
+            },
+            body: body ? JSON.stringify(body) : null,
+        }
+    )
+    .then(response => {
+    
+        if (response.ok) {
+            return response.blob(); 
+        } else {
+            throw new Error('Error descargando el archivo');
+        }
+    })
+    .then(blob => {
+ 
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `articulos_${new Date().toISOString()}.xlsx`; 
+        document.body.appendChild(a);
+        a.click();
+        a.remove(); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
   export function fetchData(path, method, body, params) {
     let url = `${API_URL}/${path}/`;
     if (params) {
@@ -43,7 +83,7 @@ const getSuspender = (promise) => {
         {
             method: method,
             headers: {
-              'Content-Type': 'application/json', // Puedes ajustar los encabezados según sea necesario
+              'Content-Type': 'application/json', 
             },
             body: body ? JSON.stringify(body) : null,
             data: body ? body : null
@@ -55,6 +95,21 @@ const getSuspender = (promise) => {
   
     return getSuspender(promise);
   }
+
+  export const fetchImportData = async (path, formData) => {
+    const url = `${API_URL}/${path}/`;
+    
+    const response = await fetch(url, {
+        method: 'POST',
+        body: formData,
+    });
+
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+
+    return await response.json();
+};
 
 export function useFetch(path, limit, offset, setData, SetTotalItems) {
   
