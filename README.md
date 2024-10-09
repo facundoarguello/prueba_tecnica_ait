@@ -87,6 +87,31 @@ _CUna vez que los contenedores estén en funcionamiento:
 * [MUI](https://mui.com/material-ui/all-components/) - Utilizado para los componentes UI del frontend, con diseños predefinidos.
 * [POSTMAN](https://documenter.getpostman.com/view/25670044/2sA2xk1roH) - Documentación de la API del backend.
 
+## Arquitectura del Proyecto 🏗️
+
+Este proyecto sigue los principios de una **arquitectura limpia** tanto en el **backend** como en el **frontend**, asegurando una separación clara de responsabilidades y facilitando el mantenimiento, la escalabilidad y las pruebas.
+
+#### Backend
+
+En el backend, desarrollado con **Django**, la arquitectura limpia está organizada en las siguientes capas:
+
+- **Data**: Manejo de las interacciones con la base de datos y otras fuentes de datos externas.
+- **Domain**: Contiene la lógica de negocio principal y las entidades del dominio.
+- **Interfaces**: Define los controladores, APIs y cualquier comunicación con otros sistemas o interfaces de usuario.
+- **UseCases**: Contiene los casos de uso que orquestan las interacciones entre las entidades de dominio y las interfaces.
+
+#### Frontend
+
+En el frontend, desarrollado con **React.js**, también se sigue una estructura modular y desacoplada, organizando el código en:
+
+- **Componentes**: UI reutilizable y centrada en la presentación.
+- **Servicios**: Lógica de negocio y llamadas a la API.
+- **Hooks personalizados**: Encapsulan lógica reutilizable que gestiona el estado y los efectos.
+- **Pages**: Organizan las paginas que el proyecto tiene.
+
+Este enfoque permite un código más mantenible y extensible, adecuado para proyectos que requieren crecimiento continuo.
+
+
 ## Autores ✒️
 
 _Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios_
