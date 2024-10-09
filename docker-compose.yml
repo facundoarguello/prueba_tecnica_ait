@@ -5,11 +5,11 @@ services:
     container_name: db_mysql_dk
     restart: always
     environment:
-      MYSQL_HOST: localhost
-      MYSQL_DATABASE: 'ait_prueba_tecnica'
-      MYSQL_USER: 'facu'
-      MYSQL_PASSWORD: 'Facu1234@'
-      MYSQL_ROOT_PASSWORD: 'Facu1234@'
+      MYSQL_HOST: localhost            
+      MYSQL_DATABASE: ${MYSQL_DATABASE}      
+      MYSQL_USER: ${MYSQL_USER}             
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}      
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  
     ports:
       - '3306:3306'
     expose:
@@ -23,6 +23,7 @@ services:
     container_name: api_be
     command: sh -c "python3 manage.py makemigrations --noinput && python3 manage.py migrate --noinput && python3 manage.py runserver 0.0.0.0:9000"
     restart: always
+    env_file: .env
     volumes:
       - ./back_end:/app_be
     ports:

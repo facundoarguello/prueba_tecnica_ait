@@ -27,6 +27,19 @@ _Si alguno de los puertos está ocupado, puedes liberar el puerto con el siguien
 ```
 kill -9 PID
 ```
+## Configuración del archivo .env 📄
+
+Antes de ejecutar el proyecto, es necesario crear un archivo `.env` en la raíz del proyecto con las siguientes variables de entorno:
+
+- **MYSQL_ROOT_PASSWORD**: La contraseña del usuario root de MySQL.
+- **MYSQL_DATABASE**: El nombre de la base de datos que se utilizará para la aplicación.
+- **MYSQL_PASSWORD**: La contraseña del usuario que accederá a la base de datos.
+- **MYSQL_USER**: El nombre de usuario para acceder a la base de datos.
+
+Asegúrate de reemplazar los valores de ejemplo con los valores correctos que desees utilizar.
+También que el MYSQL_ROOT_PASSWORD y MYSQL_PASSWORD sean los mismos
+
+
 
 ## Levantar localmente el proyecto ⚙️
 
@@ -57,8 +70,10 @@ _CUna vez que los contenedores estén en funcionamiento:
 ![Pantalla que lista todos los articulos](/images_mk/list.png) - Pantalla que muestra todos los artículos
 
 * Para exportar artículos, haz clic en el botón Export. Al hacerlo, se descargará un archivo Excel.
-![Archivo descargado](/images_mk/exceldown.png)- Archivo descargado
-![Un vistazo del archivo](/images_mk/excelfile.png) -Un vistazo del archivo
+![Archivo descargado](/images_mk/exceldown.png)
+- Archivo descargado
+![Un vistazo del archivo](/images_mk/excelfile.png) 
+-Un vistazo del archivo
 * Para importar artículos, haz clic en el botón Import. Aparecerá una ventana para seleccionar un archivo.
 ![Archivo xlsx que debe respertar este formato y el nombre de las columnas](/images_mk/fileprueba.png) -El archivo Excel debe respetar este formato y los nombres de las columnas.-
 

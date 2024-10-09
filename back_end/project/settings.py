@@ -84,14 +84,20 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+MYSQL_ROOT_PASSWORD=os.getenv("MYSQL_ROOT_PASSWORD")
+MYSQL_DATABASE=os.getenv("MYSQL_DATABASE")
+MYSQL_PASSWORD=os.getenv("MYSQL_PASSWORD")
+MYSQL_USER=os.getenv("MYSQL_USER")
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'HOST': 'db_mysql_dk',
         'PORT': '3306',
-        'USER': 'facu',
-        'PASSWORD': 'Facu1234@',
-        'NAME': 'ait_prueba_tecnica',
+        'USER': MYSQL_USER,
+        'PASSWORD': MYSQL_PASSWORD,
+        'NAME': MYSQL_DATABASE,
         'OPTIONS': {
             'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
         }
