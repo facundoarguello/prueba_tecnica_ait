@@ -1,11 +1,11 @@
 # prueba_tecnica_ait
 
-Este proyecto es una prueba tecnica para la empres Ait solutions.Contiene dos carpetas Front end y Back end.
-En si es una aplicacion que muestra un listados de articulos y su agregado, modificado y borrado de ellos.
-El front end esta hecho con lenguaje Reactjs -
-El back end esta hecho con django y con una base de datos mysql.
-python version 3.8-
-sistema operativo linux Ubuntu 22.04.1 LTS
+Este proyecto es una prueba técnica para la empresa AIT Solutions. Contiene dos carpetas: Frontend y Backend. Es una aplicación que muestra un listado de artículos y permite agregar, modificar y borrar dichos artículos.
+
+* Frontend: desarrollado con React.js.
+* Backend: desarrollado con Django y utiliza una base de datos MySQL.
+* Versión de Python: 3.8.
+* Sistema Operativo: Linux Ubuntu 22.04.1 LTS.
 
 
 
@@ -14,7 +14,7 @@ sistema operativo linux Ubuntu 22.04.1 LTS
 _Necesitaras Docker para el funcionamiento del proyecto _
 para mas información les dejo la documentación de docker :https://docs.docker.com/desktop/install/linux-install/
 
-_Revisar que los puertos 8000, 9000 y 3306 no esten ocupados_
+_Asegúrate de que los puertos 8000, 9000 y 3306 no estén ocupados_
 
 ```
 sudo lsof -i:3306 
@@ -22,7 +22,7 @@ sudo lsof -i:8000
 sudo lsof -i:9000 
 ```
 
-_En el caso que este ocupado lo puerto_
+_Si alguno de los puertos está ocupado, puedes liberar el puerto con el siguiente comando_
 
 ```
 kill -9 PID
@@ -30,10 +30,8 @@ kill -9 PID
 
 ## Levantar localmente el proyecto ⚙️
 
-_Para levantar el proyecto debes solo pararte en la ruta donde esta el docker-compose.yml_
+_Para levantar el proyecto, colócate en la ruta donde está el archivo docker-compose.yml. Luego abre tu terminal y ejecuta:_
 
-abres tu consola 
-Te paras en la carpeta principal del docker-ompose.yml
 ```
 docker compose up
 ```
@@ -47,19 +45,22 @@ docker compose up
 
 ### Analice las pruebas end-to-end 🔩
 
-_Cuando este levantado eldocker le mostrara que la api de backend esta hosteado en localhost:9000_
-_Que el front end esta hosteado en localhost:8000_
+_CUna vez que los contenedores estén en funcionamiento:
 
-* Ingresar a localhost:8000
+* El backend estará disponible en: localhost:9000.
+* El frontend estará disponible en: localhost:8000.
+
+
+* Accede a localhost:8000
 ![Home](/images_mk/home.png)- Un pequeño inicio con un mensaje
-* Tocar boton comenzar o list (arriba a la derecha)
-![Pantalla que lista todos los articulos](/images_mk/list.png) - Lista de articulos
+* Haz clic en el botón Comenzar o en el botón List (arriba a la derecha).
+![Pantalla que lista todos los articulos](/images_mk/list.png) - Pantalla que muestra todos los artículos
 
-* Para exportar, tocar el boton donde dice export . Al tocarlo se le descargara el archivo
+* Para exportar artículos, haz clic en el botón Export. Al hacerlo, se descargará un archivo Excel.
 ![Archivo descargado](/images_mk/exceldown.png)- Archivo descargado
 ![Un vistazo del archivo](/images_mk/excelfile.png) -Un vistazo del archivo
-* Para importar, debes tocar el boton import , se abrira la pantalla para buscar un archivo.
-![Archivo xlsx que debe respertar este formato y el nombre de las columnas](/images_mk/fileprueba.png) -Archivo xlsx que debe respertar este formato y el nombre de las columnas-
+* Para importar artículos, haz clic en el botón Import. Aparecerá una ventana para seleccionar un archivo.
+![Archivo xlsx que debe respertar este formato y el nombre de las columnas](/images_mk/fileprueba.png) -El archivo Excel debe respetar este formato y los nombres de las columnas.-
 
 ![Datos insertados](/images_mk/listinsert.png) - Resultado
 
@@ -69,20 +70,22 @@ _Que el front end esta hosteado en localhost:8000_
 * Pantalla para modificar un articulo
 ![Pantalla para modificar un articulo](images_mk/up.png)
 
-* Para borrar se debe clickear este icono
+* Para borrar un artículo, haz clic en el siguiente icono
 
   
 ![Para borrar se debe clickear este icono](images_mk/del.png)
 
+## Pruebas e Integración Continua 🚀
+    Este proyecto utiliza GitHub Actions para la ejecución automatizada de tests. Las pruebas se ejecutan en cada push o pull request gracias a un workflow definido en el archivo .github/workflows/test.yml.
 ## Construido con 🛠️
 
-* [Docker](https://docs.docker.com/manuals/) - Para el manejo de los contenedores
-* [Python3.8](https://docs.python.org/3.8/) - Lenguaje para el back
-* [Ddjango rest framework](https://www.django-rest-framework.org/) - Django framework
-* [Reactjs](https://legacy.reactjs.org/docs/getting-started.html) - Usado para generar el front end
-* [Vite](https://carlosazaustre.es/react-vite) - Usado para la compilación rapida de Reactjs
-* [MUI](https://mui.com/material-ui/all-components/) - Usado para la seleccion de los componentes, esto me resulta mucho mas facil , por que tiene diseños predeterminados
-* [POSTMAN](https://documenter.getpostman.com/view/25670044/2sA2xk1roH) - Documentación de la api de backend
+* [Docker](https://docs.docker.com/manuals/) - Para la gestión de contenedores.
+* [Python3.8](https://docs.python.org/3.8/) -  Lenguaje de programación utilizado para el backend.
+* [Ddjango rest framework](https://www.django-rest-framework.org/) -  Framework de Django utilizado para crear la API.
+* [Reactjs](https://legacy.reactjs.org/docs/getting-started.html) - Framework para el desarrollo del frontend.
+* [Vite](https://carlosazaustre.es/react-vite) - Utilizado para la compilación rápida de React.js.
+* [MUI](https://mui.com/material-ui/all-components/) - Utilizado para los componentes UI del frontend, con diseños predefinidos.
+* [POSTMAN](https://documenter.getpostman.com/view/25670044/2sA2xk1roH) - Documentación de la API del backend.
 
 ## Autores ✒️
 
