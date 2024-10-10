@@ -106,6 +106,34 @@ _CUna vez que los contenedores estén en funcionamiento:
 
 Este proyecto sigue los principios de una **arquitectura limpia** tanto en el **backend** como en el **frontend**, asegurando una separación clara de responsabilidades y facilitando el mantenimiento, la escalabilidad y las pruebas.
 
+## Pre-commit hooks en el backend
+
+Este proyecto utiliza `pre-commit` para asegurarse de que se cumplan ciertas reglas antes de que se realicen commits en el repositorio. Los hooks predefinidos ayudan a mantener un código consistente y libre de errores comunes.
+
+### Instalación de pre-commit
+
+1. Asegúrate de tener `pre-commit` instalado en tu entorno de desarrollo. Puedes instalarlo con pip:
+
+    ```bash
+    pip install pre-commit
+    ```
+
+2. Luego, debes instalar los hooks de `pre-commit` ejecutando:
+
+    ```bash
+    pre-commit install
+    ```
+
+   Esto instalará los hooks en el repositorio local para que se ejecuten automáticamente en cada commit.
+
+### Ejecución manual de pre-commit
+
+Si deseas ejecutar los hooks de `pre-commit` manualmente, puedes hacerlo con el siguiente comando:
+
+```bash
+pre-commit run --all-files
+```
+
 #### Backend
 
 En el backend, desarrollado con **Django**, la arquitectura limpia está organizada en las siguientes capas:
